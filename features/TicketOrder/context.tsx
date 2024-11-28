@@ -1,6 +1,9 @@
+'use client';
+
 import { createContext, PropsWithChildren, FC, useState, useContext } from "react";
 
 import { Tier } from "./types";
+import { coreApiClient } from "@/lib/api-client";
 
 export interface HolderData {
   tierId: string;
@@ -84,19 +87,8 @@ export const TicketOrderProvider: FC<TicketOrderProviderProps> = ({ children, in
     if (imageData) formData.append('image', imageData.file)
     if (holderData.length > 0) formData.append('holderData', JSON.stringify(holderData))
 
-    console.log({
-      image: formData.get('image'),
-      holderData: formData.get('holderData'),
-      imageData: imageData?.file,
-    });
-    
-
-    const completed = await fetch('http://localhost:3000/orders', {
-      method: 'POST',
-      body: formData
-    }).then((res) => res.json());
-
-    console.log(completed);
+    const completed = await coreApiClient.post('/orders', formData)
+    console.log({ completed });
   }
 
   return (
