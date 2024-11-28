@@ -5,6 +5,9 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
+  --max-content-width: 1200px;
+  --min-content-x-padding: 16px;
+  --content-x-padding: max(var(--min-content-x-padding), calc((100vw - var(--max-content-width)) / 2));
 }
 
 @media (prefers-color-scheme: dark) {
